@@ -35,6 +35,9 @@ public:
 	//CD parancs
 	void cd();
 
+	//RM parancs
+	void rm();
+
 	//Aktuális pozíció kiírása
 	void kiir() const;
 
@@ -52,14 +55,11 @@ private:
 	//Mappák útvonala
 	vector<mappa> rout;
 
-	//Bemenet egész
+	//A parancs, darabokra szedve
+	vector<string> cmd_;
+
+	//A parancs, nem darabolva 
 	string cmd;
-
-	//Bemenet eleje
-	string cmd_frst;
-
-	//Bemenet további része
-	string cmd_scnd;
 
 	//Aktuális adatok
 	string akt_folder;
