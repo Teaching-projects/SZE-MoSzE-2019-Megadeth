@@ -12,7 +12,7 @@ cmds::cmds() {
 }
 
 
-//Parancs bekérése
+// Parancs bekérése
 void cmds::getCmd() {
 
 	cmd_.clear();
@@ -38,7 +38,7 @@ void cmds::getCmd() {
 
 }
 
-//Exit check
+// Exit check
 bool cmds::exit_chck() const {
 	
 	if (cmd_[0] == "exit") {
@@ -50,7 +50,7 @@ bool cmds::exit_chck() const {
 
 }
 
-//Parancs ellenõrzése
+// Parancs ellenõrzése
 void cmds::cmd_chck() {
 
 	if (cmd_[0] == "mkdir") {
@@ -86,7 +86,7 @@ void cmds::cmd_chck() {
 
 }
 
-//Gyökér létrehozása
+// Gyökér létrehozása
 void cmds::gykr() {
 
 	rout.push_back(data());
@@ -98,7 +98,7 @@ void cmds::gykr() {
 	
 }
 
-//MKDIR parancs 
+// MKDIR parancs 
 void cmds::mkdir() {
 
 	exist = false;
@@ -112,7 +112,7 @@ void cmds::mkdir() {
 
 		for (int i = 0; i < size(rout); i++) {
 
-			if (rout[i].nev == cmd_[1] && akt_folder == rout[i].szulo) {
+			if (rout[i].nev == cmd_[1] && akt_folder == rout[i].szulo && rout[i].tipus == "Folder") {
 				exist = true;
 			}
 
@@ -139,7 +139,7 @@ void cmds::mkdir() {
 
 }
 
-//LS parancs
+// LS parancs
 void cmds::ls() const{
 
 	cout << endl;
@@ -151,7 +151,7 @@ void cmds::ls() const{
 	}
 }
 
-//CD parancs
+// CD parancs
 void cmds::cd() {
 
 	exist = false;
@@ -169,13 +169,13 @@ void cmds::cd() {
 			}
 		}
 
-		//Ugrás a gyökérbe
+		// Ugrás a gyökérbe
 		if (cmd_[1] == "..") {
 
 			akt_folder = "root";
 
 		}
-		//Ugrás megadott directoryba
+		// Ugrás megadott directoryba
 		else if (cmd_[1] != "..") {
 
 			if (exist) {
@@ -195,7 +195,7 @@ void cmds::cd() {
 	
 }
 
-//Kiíratás
+// Kiíratás
 void cmds::kiir() const{
 
 	cout << endl << " - Aktualis directory: " << akt_folder << endl;
@@ -203,14 +203,63 @@ void cmds::kiir() const{
 
 }
 
-//RM parancs
+// RM parancs
 void cmds::rm() {
 
+	exist = false;
 
+	for (int i = 0; i < size(rout); i++) {
+
+		if (rout[i].nev == cmd_[1] && rout[i].tipus == "File") {
+
+			exist = true;
+
+		}
+
+	}
+
+	if (exist) {
+
+		// -RF parancs
+		if (cmd_[1] == "-rf") {
+
+			for (int i = 0; i < size(rout); i++) {
+
+				if (rout[i].nev == cmd_[2]) {
+					rout[i].nev.erase();
+					rout[i].szulo.erase();
+					rout[i].tipus.erase();
+				}
+
+			}
+
+		}
+		// Alap parancs
+		else if(size(cmd_) == 2)
+		{
+
+			for (int i = 0; i < size(rout); i++) {
+
+				if (rout[i].nev == cmd_[1] && rout[i].tipus == "File") {
+					rout[i].nev.erase();
+					rout[i].szulo.erase();
+					rout[i].tipus.erase();
+				}
+
+			}
+
+		}
+
+	}
+	else {
+
+		cout << "A torolni kivant file nem letezik!" << endl;
+
+	}
 
 }
 
-//TOUCH parancs
+// TOUCH parancs
 void cmds::touch() {
 
 	exist = false;
