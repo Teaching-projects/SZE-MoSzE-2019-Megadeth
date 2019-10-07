@@ -11,49 +11,44 @@ class cmds
 {
 public:
 
-	//Konstruktor
 	cmds();
 
-	//Parancs bekérése
 	void getCmd();
 
-	//Exit check
 	bool exit_chck() const;
 
-	//Parancs ellenõrzése 
-	void cmd_chck();
+	void cmd_chck() ;
 
-	//Gyökér létrehozása
 	void gykr();
 
-	//Mkdir parancs
 	void mkdir();
 
-	//LS parancs
-	void ls();
+	void ls() const;
 
-	//CD parancs
 	void cd();
 
-	//RM parancs
 	void rm();
 
-	//Aktuális pozíció kiírása
+	void touch();
+
 	void kiir() const;
+
 
 private:
 
-	struct mappa
+	struct data
 	{
 
-		//Folder adatok
-		string mappa_nev;
-		string mappa_szulo;
+		//Adatok
+		string nev;
+		string szulo;
+		string tipus;
 
 	};
+	
 
 	//Mappák útvonala
-	vector<mappa> rout;
+	vector<data> rout;
 
 	//A parancs, darabokra szedve
 	vector<string> cmd_;

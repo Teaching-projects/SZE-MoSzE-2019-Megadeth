@@ -1,7 +1,6 @@
 #include"cmd.h"
 
 
-//Konstruktor
 cmds::cmds() {
 
 	for (int i = 0; i < 3; i++) {
@@ -55,13 +54,29 @@ bool cmds::exit_chck() const {
 void cmds::cmd_chck() {
 
 	if (cmd_[0] == "mkdir") {
+
 		mkdir();
+
 	}
 	else if (cmd_[0] == "ls") {
+
 		ls();
+
 	}
 	else if (cmd_[0] == "cd") {
+
 		cd();
+
+	}
+	else if (cmd_[0] == "rm") {
+
+		rm();
+
+	}
+	else if (cmd_[0] == "touch") {
+
+		touch();
+
 	}
 	else if (cmd_[0] == "exit") {
 	}
@@ -74,9 +89,9 @@ void cmds::cmd_chck() {
 //Gyökér létrehozása
 void cmds::gykr() {
 
-	rout.push_back(mappa());
+	rout.push_back(data());
 
-	rout[0].mappa_nev = "root";
+	rout[0].nev = "root";
 	akt_folder = "root";
 
 	folder_numbers += 1;
@@ -97,7 +112,7 @@ void cmds::mkdir() {
 
 		for (int i = 0; i < size(rout); i++) {
 
-			if (rout[i].mappa_nev == cmd_[1] && akt_folder == rout[i].mappa_szulo) {
+			if (rout[i].nev == cmd_[1] && akt_folder == rout[i].szulo) {
 				exist = true;
 			}
 
@@ -105,17 +120,18 @@ void cmds::mkdir() {
 
 		if (exist == false) {
 
-			rout.push_back(mappa());
+			rout.push_back(data());
 
-			rout[folder_numbers].mappa_nev = cmd_[1];
-			rout[folder_numbers].mappa_szulo = akt_folder;
+			rout[folder_numbers].nev = cmd_[1];
+			rout[folder_numbers].szulo = akt_folder;
+			rout[folder_numbers].tipus = "Folder";
 
 			folder_numbers += 1;
 
 		}
 		else if (exist == true) {
 
-			cout << "Az adott mappa letezik mar!" << endl;
+			cout << "Az adott nevu mappa letezik mar!" << endl;
 
 		}
 
@@ -124,13 +140,13 @@ void cmds::mkdir() {
 }
 
 //LS parancs
-void cmds::ls() {
+void cmds::ls() const{
 
 	cout << endl;
 
 	for (int i = 0; i < size(rout); i++) {
-		if (rout[i].mappa_szulo == akt_folder) {
-			cout << rout[i].mappa_nev << endl;
+		if (rout[i].szulo == akt_folder) {
+			cout << rout[i].tipus << " - " << rout[i].nev << endl;
 		}
 	}
 }
@@ -148,7 +164,7 @@ void cmds::cd() {
 	else {
 
 		for (int i = 0; i < size(rout); i++) {
-			if (rout[i].mappa_nev == cmd_[1]) {
+			if (rout[i].nev == cmd_[1] && rout[i].tipus == "Folder") {
 				exist = true;
 			}
 		}
@@ -169,7 +185,7 @@ void cmds::cd() {
 			}
 			else if (exist == false) {
 
-				cout << "A megadott folder nem letezik!" << endl;
+				cout << "Az adott nevu folder nem letezik!" << endl;
 
 			}
 
@@ -187,6 +203,50 @@ void cmds::kiir() const{
 
 }
 
+//RM parancs
 void cmds::rm() {
+
+
+
+}
+
+//TOUCH parancs
+void cmds::touch() {
+
+	exist = false;
+
+	if (size(cmd_) == 1 || (cmd_[1] == "")) {
+
+		cout << "Parancs keves!" << endl;
+
+	}
+	else {
+
+		for (int i = 0; i < size(rout); i++) {
+
+			if (rout[i].nev == cmd_[1] && akt_folder == rout[i].szulo && rout[i].tipus == "File") {
+				exist = true;
+			}
+
+		}
+
+		if (exist == false) {
+
+			rout.push_back(data());
+
+			rout[folder_numbers].nev = cmd_[1];
+			rout[folder_numbers].szulo = akt_folder;
+			rout[folder_numbers].tipus = "File";
+
+			folder_numbers += 1;
+
+		}
+		else if (exist == true) {
+
+			cout << "Az adott nevu file letezik mar!" << endl;
+
+		}
+
+	}
 
 }
