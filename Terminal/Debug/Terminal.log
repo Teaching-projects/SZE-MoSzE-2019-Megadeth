@@ -1,0 +1,10 @@
+﻿  cmd.cpp
+C:\VS\Terminal\Terminal\cmd.cpp(26,20): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(113,21): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(147,20): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(166,21): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(211,20): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(226,22): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(241,22): warning C4018:  '<': signed/unsigned mismatch
+C:\VS\Terminal\Terminal\cmd.cpp(274,21): warning C4018:  '<': signed/unsigned mismatch
+  Terminal.vcxproj -> C:\VS\Terminal\Debug\Terminal.exe
